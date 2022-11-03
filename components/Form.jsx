@@ -1,11 +1,14 @@
 import { useState } from 'react'
-import style from "./Form.module.css";
+import style from "./Form.module.css"
 import axios from 'axios'
+import {Button} from "@mui/material"
+import Link from "next/link"
+
 const Form = () => {
     const [channel, setChannel] = useState('');
     const [keyword, setKeyword] = useState('');
 
-    const sendDetails = async() => {
+    const registerDetails = async() => {
         if (channel === '') {
             alert("Please enter channel name")
             return
@@ -26,28 +29,8 @@ const Form = () => {
 
     }
 
-    const insertChannel = async() => {
-        if (channel === '') {
-            alert("Please enter channel name")
-            return
-        } else if (keyword === '') {
-            alert("Please enter keyword")
-            return
-        }
-
-        const res = await axios.post('api/registerChannel', {
-            channel: channel,
-            keyword: keyword,
-           
-        }).then(res => res)
-
-        console.log(res.data.message)
-
-        return res
-
-    }
-
     
+
     return (
         <div>
 
@@ -72,21 +55,19 @@ const Form = () => {
                             onChange={(e) => setKeyword(e.target.value)}
                         />
 
-                        <button
-                            className={style.btn}
-                            onClick={()=>{sendDetails(); insertChannel()} }
+                        <Button
+                            style={{backgroundColor:"#6495ED", color:"white"}}
+                            onClick={registerDetails }
                         >
                             Send
-                        </button>
+                        </Button>
 
                     </div>
 
-
-
-
                 </div>
-
+                  
             </div>
+            <Link href="/TweetTable" style={{display:"flex", justifyContent:"center"}}><p>See Tweets</p></Link>
         </div>
     )
 }
