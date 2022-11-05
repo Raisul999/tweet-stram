@@ -9,24 +9,22 @@ import {
     TableRow,
     Paper,
     Button
-
 } from '@mui/material';
 import Link from 'next/link';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
-const TweetTable = () => {
-
+const ChannelTable = () => {
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
 
-
-    const getTweets = () => {
+    const getChannels = () => {
         setLoading(true)
-        axios.get('api/getTweets')
+        axios.get('api/getChannels')
             .then((res) => {
 
 
-                setData(res.data.tweets)
+                setData(res.data.channels)
                 setLoading(false)
 
             }).catch((err) => {
@@ -38,8 +36,21 @@ const TweetTable = () => {
     }
 
     useEffect(() => {
-        getTweets()
+        getChannels()
     }, [])
+
+    const deleteChannel = (params) => {
+        console.log(params)
+        axios.post('api/deleteChannel', params)
+            .then((res) => {
+                alert(res.data.message)
+            })
+            .catch((error) => {
+                alert(error.data.message)
+            })
+
+        getChannels()
+    }
 
     // console.log(data)
     return (
@@ -53,16 +64,17 @@ const TweetTable = () => {
                 </Button>
             </div>
             {loading ? <p style={{ textAlign: "center", fontSize: "1.5rem" }}>Loading...</p> : <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", margin: "6rem 4rem" }}>
-                <h3 align="center">Tweet Stream Table</h3>
+                <h3 align="center">Channels Table</h3>
 
                 <TableContainer component={Paper}>
 
                     <Table sx={{ minWidth: 650 }}>
                         <TableHead>
                             <TableRow>
-                                <TableCell align="center">Tweet ID</TableCell>
-                                <TableCell align="center">Text</TableCell>
-                                <TableCell align="center">Tag</TableCell>
+                                <TableCell align="center">Rule ID</TableCell>
+                                <TableCell align="center">Rule</TableCell>
+                                <TableCell align="center">Channel Tag</TableCell>
+                                <TableCell align="center">Delete Channel</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -70,18 +82,27 @@ const TweetTable = () => {
                                 <TableRow
                                     key={row.id}
                                 >
-                                    <TableCell align="center" >{row.tweet_id}</TableCell>
-                                    <TableCell align="center">{row.text}</TableCell>
-                                    <TableCell align="center">{row.tag}</TableCell>
+                                    <TableCell align="center" >{row.rule_id}</TableCell>
+                                    <TableCell align="center">{row.rule}</TableCell>
+                                    <TableCell align="center">{row.channel_tag}</TableCell>
+                                    <TableCell align="center">
+                                        <Button
+                                            variant="outlined"
+                                            color="error"
+                                            startIcon={<DeleteIcon />}
+                                            onClick={() => { deleteChannel(row) }}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
-
             </div>}
         </>
     )
 }
 
-export default TweetTable
+export default ChannelTable

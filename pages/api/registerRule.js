@@ -13,17 +13,7 @@ export default async (req, res) => {
         ],
     });
 
-    // const deleteRules = await client.v2.updateStreamRules({
-    //     delete: {
-    //         ids: ['1588048353098887168'],
-    //     },
-    // });
-
-    // console.log(deleteRules)
-
-
     console.log(addedRules)
-
 
 
     if (addedRules.errors == null) {
@@ -73,8 +63,8 @@ export default async (req, res) => {
         }
 
     }
-    
-    return res.status(400).json({message:"Duplicate entry"})
+
+    return res.status(400).send("Duplicate Rule")
 
 
 

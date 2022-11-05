@@ -1,35 +1,42 @@
 import { useState } from 'react'
 import style from "./Form.module.css"
 import axios from 'axios'
-import {Button} from "@mui/material"
-import Link from "next/link"
+import { Button } from "@mui/material"
+
 
 const Form = () => {
     const [channel, setChannel] = useState('');
     const [keyword, setKeyword] = useState('');
 
-    const registerDetails = async() => {
+    const registerDetails = async () => {
+        console.log(channel.length)
         if (channel === '') {
+
             alert("Please enter channel name")
+            return
+        } else if (channel.length == 2) {
+            alert('Channel name must be at least 3 characters')
             return
         } else if (keyword === '') {
             alert("Please enter keyword")
             return
         }
 
+
+
         const res = await axios.post('api/registerRule', {
             channel: channel,
             keyword: keyword,
-           
-        }).then(res => res)
 
-        return res
-
-
+        })
+            .then(res => res)
+            .catch((error) => {
+                alert(error.message)
+            })
 
     }
 
-    
+
 
     return (
         <div>
@@ -43,6 +50,7 @@ const Form = () => {
                         <input
                             type="text"
                             className={style.input}
+                            min={3}
                             value={channel}
                             onChange={(e) => setChannel(e.target.value)}
                         />
@@ -56,8 +64,9 @@ const Form = () => {
                         />
 
                         <Button
-                            style={{backgroundColor:"#6495ED", color:"white"}}
-                            onClick={registerDetails }
+                            variant='contained'
+                            color='primary'
+                            onClick={registerDetails}
                         >
                             Send
                         </Button>
@@ -65,9 +74,8 @@ const Form = () => {
                     </div>
 
                 </div>
-                  
+
             </div>
-            <Link href="/TweetTable" style={{display:"flex", justifyContent:"center"}}><p>See Tweets</p></Link>
         </div>
     )
 }

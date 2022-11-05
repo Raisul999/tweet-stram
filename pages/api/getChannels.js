@@ -1,7 +1,6 @@
-import axios from "axios";
+import axios from 'axios'
 
 export default async (req, res) => {
-
     const endpoint = process.env.HASURA_PROJECT_ENDPOINT;
 
     const headers = {
@@ -11,14 +10,13 @@ export default async (req, res) => {
     const graphqlQuery = {
 
         "query": `{
-            tweets{
+            channels{
                 id
-                text
-                tweet_id
-                tag
+                rule_id
+                rule
+                channel_tag
               }
           }`,
-
     };
 
     const response = await axios({
@@ -27,7 +25,7 @@ export default async (req, res) => {
         headers: headers,
         data: graphqlQuery
     })
-    // console.log(response.data.data)
+    console.log(response.data.data)
 
     return res.send(response.data.data)
 }
