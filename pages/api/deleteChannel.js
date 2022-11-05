@@ -2,7 +2,7 @@ import axios from 'axios'
 import { TwitterApi } from 'twitter-api-v2';
 
 export default async(req,res)=>{
-    console.log(req.body)
+    // console.log(req.body)
     const{rule_id, channel_tag} = req.body
 
     const client = new TwitterApi(process.env.TWITTER_TOKEN);
@@ -13,7 +13,7 @@ export default async(req,res)=>{
         },
     });
 
-    console.log(deleteRules.meta.summary.deleted)
+    // console.log(deleteRules.meta.summary.deleted)
 
     // Delete Tweets
  

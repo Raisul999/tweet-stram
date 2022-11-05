@@ -54,7 +54,7 @@ export default async (req, res) => {
 
         if (response.data.data.insert_channels_one) {
             return res.status(200).json({
-                message: "Inserted successfully"
+                message: "Channel created successfully"
             })
         }
         else {

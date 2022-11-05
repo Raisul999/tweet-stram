@@ -25,7 +25,7 @@ export default async (req, res) => {
         headers: headers,
         data: graphqlQuery
     })
-    console.log(response.data.data)
+    // console.log(response.data.data)
 
     return res.send(response.data.data)
 }

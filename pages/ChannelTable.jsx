@@ -26,6 +26,7 @@ const ChannelTable = () => {
 
                 setData(res.data.channels)
                 setLoading(false)
+                // alert(res?)
 
             }).catch((err) => {
                 alert("Server Timeout")
@@ -40,7 +41,8 @@ const ChannelTable = () => {
     }, [])
 
     const deleteChannel = (params) => {
-        console.log(params)
+        // console.log(params)
+        let copy =  [...data]
         axios.post('api/deleteChannel', params)
             .then((res) => {
                 alert(res.data.message)
@@ -49,7 +51,8 @@ const ChannelTable = () => {
                 alert(error.data.message)
             })
 
-        getChannels()
+         copy = data.filter((data) =>data.id !== params.id)
+         setData(copy)
     }
 
     // console.log(data)

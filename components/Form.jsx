@@ -29,7 +29,9 @@ const Form = () => {
             keyword: keyword,
 
         })
-            .then(res => res)
+            .then((res) =>{
+                alert(res.data.message)
+            })
             .catch((error) => {
                 alert(error.message)
             })
