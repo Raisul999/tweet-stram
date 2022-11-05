@@ -49,7 +49,7 @@ const TweetTable = () => {
                     variant='contained'
                     color='success'
                 >
-                    <Link href='/'>Add</Link>
+                    <Link href='/'>Add Channel</Link>
                 </Button>
             </div>
             {loading ? <p style={{ textAlign: "center", fontSize: "1.5rem" }}>Loading...</p> : <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", margin: "6rem 4rem" }}>
