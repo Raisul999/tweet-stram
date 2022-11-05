@@ -8,8 +8,9 @@ const Form = () => {
     const [channel, setChannel] = useState('');
     const [keyword, setKeyword] = useState('');
 
-    const registerDetails = async () => {
-        console.log(channel.length)
+    const registerDetails = () => {
+        // console.log(channel.length)
+        // Validations
         if (channel === '') {
 
             alert("Please enter channel name")
@@ -22,9 +23,9 @@ const Form = () => {
             return
         }
 
+       // API request
 
-
-        const res = await axios.post('api/registerRule', {
+        axios.post('api/registerRule', {
             channel: channel,
             keyword: keyword,
 
@@ -33,7 +34,7 @@ const Form = () => {
                 alert(res.data.message)
             })
             .catch((error) => {
-                alert(error.message)
+                alert("Duplicate Rule")
             })
 
     }
